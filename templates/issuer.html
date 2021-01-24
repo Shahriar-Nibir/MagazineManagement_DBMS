@@ -1,0 +1,117 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Magazine Manager | Applications | Issuer's Info</title>
+    <link rel="stylesheet" href="{% static './css/style.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">Magazine</span> Manager</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index">Home</a></li>
+                    {% if user.is_authenticated %}
+                    <li class="current"><a href="applications">Applications</a></li>
+                    <li><a href="logout">Log Out</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    {% if request.user.is_staff == False %}
+    <section>
+        <div class="container">
+            <br>
+            <h3>If the issuer is already created</h3>
+            <a class="btn btn-success btn-lg" href="/issue">Proceed for Issuing</a>
+            <aside id="side-bar">
+                <div class="dark">
+
+                    <h3>Create New Issuer</h3>
+                    <form class="Quote" action="issuer" method="POST">
+                        {% csrf_token %}
+                        {% for form in forms %}
+                        <div id="new">
+                            <label>{{form.label}}</label><br>
+                            {{form}}
+                        </div>
+                        {% endfor %}
+                        <br>
+                        <button class="button_1" type="submit">Save</button>
+                    </form>
+                    <div>
+                        {% for message in messages %}
+                        <h3>{{message}}</h3>
+                        {% endfor %}
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </section>
+    {% endif %}<br>
+    {% if request.user.is_staff %}
+    <div class='container'>
+        <a class="btn btn-dark btn-lg btn-block" href="/issue">Issue History</a>
+    </div>
+    {% endif %}
+    <br>
+    <br>
+    <div class="jumbotron text-center">
+        <h3>Issuer's Info</h3>
+    </div>
+    <div class="">
+        <div class="">
+            <div class="card card-body">
+                <form method="get">
+                    {% csrf_token %}
+                    {{myFilters.form}}
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="card card-body">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th>Coy</th>
+                            <th>Rank</th>
+                            <th>Phone</th>
+                        </tr>
+
+                        {% for issuer in issuers %}
+                        <tr>
+                            <td>{{issuer.no}}</td>
+                            <td>{{issuer.name}}</td>
+                            <td>{{issuer.coy}}</td>
+                            <td>{{issuer.rk}}</td>
+                            <td>{{issuer.phone}}</td>
+                        </tr>
+                        {% endfor %}
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <footer>
+            <p>BIJOYEE BAISH</p>
+        </footer>
+</body>
+
+</html>

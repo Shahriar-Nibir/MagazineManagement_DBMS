@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Magazine Manager | Applications | Ammo List</title>
+	<link rel="stylesheet" href="{% static './css/style.css' %}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+	<header>
+		<div class="container">
+			<div id="branding">
+				<h1><span class="highlight">Magazine</span> Manager</h1>
+			</div>
+			<nav>
+				<ul>
+					<li><a href="index">Home</a></li>
+					{% if user.is_authenticated %}
+					<li class="current"><a href="applications">Applications</a></li>
+					<li><a href="logout">Log Out</a></li>
+					{% endif %}
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+
+
+	<!--<section id="newsletter">
+			<div class="container">
+				<h1>Subscribe To Our Newsletters</h1>
+				<form>
+					<input type="email" placeholder="Enter Email">
+					<button type="submit" class="button_1">subscribe</button>
+				</form>
+			</div>
+		</section>
+		-->
+	<section id="main">
+		<div class="container">
+			<div class="jumbotron text-center">
+				<h3>Ammonition Name and Specification</h3>
+			</div>
+			<div class="">
+				<div class="">
+					<div class="card card-body">
+						<form method="get">
+							{% csrf_token %}
+							{{myFilters.form}}
+							<button class="btn btn-primary" type="submit">Search</button>
+						</form>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-md">
+						<div class="card card-body">
+							<table class="table table-sm">
+								<tr>
+									<th>Name</th>
+									<th>Item Number</th>
+									<th>UN Number</th>
+									<th>Class/Div</th>
+								</tr>
+
+								{% for ammo_de in ammo_des %}
+								<tr>
+									<td>{{ammo_de.ammo_name}}</td>
+									<td>{{ammo_de.itm_no}}</td>
+									<td>{{ammo_de.un_no}}</td>
+									<td>{{ammo_de.cl_div}}</td>
+								</tr>
+								{% endfor %}
+
+							</table>
+						</div>
+					</div>
+				</div>
+
+			</div>
+	</section>
+
+	<footer>
+		<p>BIJOYEE BAISH</p>
+	</footer>
+</body>
+
+</html>

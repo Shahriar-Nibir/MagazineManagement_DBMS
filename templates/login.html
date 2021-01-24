@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Magazine Manager | Login</title>
+	<link rel="stylesheet" href="{% static './css/style.css' %}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+	<header>
+		<div class="container">
+			<div id="branding">
+				<h1><span class="highlight">Magazine</span> Manager</h1>
+			</div>
+			<nav>
+				<ul>
+					<!--<li><a href="index">Home</a></li>-->
+					<li class="current"><a href="login">Log in</a></li>
+					<li><a href="register">Sign Up</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<section>
+		<div class="container">
+			<aside id="side-bar">
+				<div class="dark">
+					<h3>Log In</h3>
+					<form class="Quote" action="login" method="POST">
+						{% csrf_token %}
+						<div id="new">
+							<label>Username</label><br>
+							<input type="text" name="username" placeholder="Username">
+						</div>
+						<div id="new">
+							<label>Password</label><br>
+							<input type="password" name="password">
+						</div>
+
+						<!--<div>
+								<label>Message</label><br>
+								<textarea placeholder="Message"></textarea>
+							</div>-->
+						<button class="button_1" type="submit">Log In</button>
+					</form>
+					<div>
+						{% for message in messages %}
+						<h3>{{message}}</h3>
+						{% endfor %}
+					</div>
+					Don't have an account? <a href="register">Sign Up</a>
+				</div>
+			</aside>
+
+		</div>
+	</section>
+
+	<footer>
+		<p>BIJOYEE BAISH</p>
+	</footer>
+</body>
+
+</html>
